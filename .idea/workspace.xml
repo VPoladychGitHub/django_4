@@ -1,21 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="a884a2e3-9eea-42f5-accb-8df6ecfffe57" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/catalog/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/catalog/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/catalog/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/catalog/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/catalog/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/catalog/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/catalog/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/catalog/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.flake8" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/polls/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/polls/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/polls/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/polls/management/commands/closepoll.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/polls/management/commands/insert_person.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/polls/management/commands/test_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/polls/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/polls/migrations/0002_peson.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/polls/migrations/0003_auto_20201227_0952.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/polls/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/polls/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/polls/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/polls/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/polls/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/django_4/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/django_4/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/django_4/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/django_4/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -37,8 +56,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="sqlite" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
@@ -79,7 +100,9 @@
       <workItem from="1608895973159" duration="1301000" />
       <workItem from="1608897284597" duration="66000" />
       <workItem from="1608897354237" duration="1584000" />
-      <workItem from="1608906616037" duration="2159000" />
+      <workItem from="1608906616037" duration="6781000" />
+      <workItem from="1608970836218" duration="7316000" />
+      <workItem from="1609058323156" duration="13578000" />
     </task>
     <servers />
   </component>
