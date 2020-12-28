@@ -3,7 +3,7 @@ from polls.models import Person  #
 
 
 class Command(BaseCommand):
-    help = 'test command'
+    help = 'set in parameter count of add users'
 
     def add_arguments(self, parser):
         parser.add_argument('poll_person', nargs='+', type=int)
