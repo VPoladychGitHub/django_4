@@ -34,6 +34,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'person.apps.PersonConfig',
+    'triangle.apps.TriangleConfig',
     'catalog.apps.CatalogConfig',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
@@ -59,7 +61,7 @@ ROOT_URLCONF = 'django_4.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

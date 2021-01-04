@@ -1,0 +1,16 @@
+{% block content %}
+  <h1>Triangle</h1>
+  <form method="post">
+    {% csrf_token %}
+     {%if diagonal  %}
+          <div>гипотенуза: {{diagonal}}</div>
+     {% else %}
+     <div>
+       {{ form.as_p }}
+       <div class="form-actions">
+        <button type="submit">Send</button>
+        </div>
+     </div>
+  {% endif %}
+  </form>
+{% endblock %}

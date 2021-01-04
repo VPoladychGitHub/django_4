@@ -1,0 +1,40 @@
+form.cleaned_data
+from triangle.forms import TriangleForm
+form = TriangleForm()
+form
+
+form  = TriangleForm({'catet_1': '4', 'catet_2': '3'})
+form
+form  = TriangleForm({'catet_1': '4', 'catet_2': '3', 'diagonal': '4'})
+form.cleaned_data
+
+        form = PersonalModelForm(request.POST)
+        if form.is_valid():
+            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+            # person_instance.due_back = form.cleaned_data['renewal_date']
+            person_instance.save()
+
+
+ def new_person(request):
+    #person_instance = get_object_or_404(Person)
+    if request.method == 'POST':
+        print("11111")
+        form = PersonalModelForm(request.POST)
+        if form.is_valid():
+            pass
+            #person_instance.save()
+
+            return HttpResponseRedirect(reverse('person-create'))
+    else:
+        # proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
+        form = Person()
+        #form = PersonalModelForm(initial={'email': "test@test.com"})
+        print("11111")
+    return render(
+        request,
+        "person/person_form.html",
+        context={
+            "form": form
+        }
+    )
+
