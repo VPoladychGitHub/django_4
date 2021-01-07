@@ -11,6 +11,44 @@ def index(request):
     return HttpResponse("Hello, world. You're at the person index.")
 
 
+def person_edit(request, pk):
+    person_instance = get_object_or_404(Person, pk=pk)
+    if request.method == "GET":
+        form = PersonalModelForm(instance=person_instance)
+    else:
+        form = PersonalModelForm(request.POST, instance=person_instance)
+        if form.is_valid():
+            print(form.cleaned_data)
+            form.save()
+            return redirect('person-update', pk=pk)
+
+    return render(
+        request,
+        "person/person_form.html",
+        context={
+            "form": form,
+        }
+    )
+
+
+def new_person(request):
+    if request.method == "GET":
+        form = PersonalModelForm()
+    else:
+        form = PersonalModelForm(request.POST)
+        if form.is_valid():
+            saved_form = form.save()
+            return redirect('person-create')
+
+    return render(
+        request,
+        "person/person_form.html",
+        context={
+            "form": form,
+        }
+    )
+
+
 class PersonCreate(generic.CreateView):
     model = Person
     fields = '__all__'  # Not recommended (potential security issue if more fields added)

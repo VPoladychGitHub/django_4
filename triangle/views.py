@@ -1,5 +1,8 @@
 import math
 from django.contrib import messages
+from django.core.exceptions import ValidationError
+from pipenv.vendor.importlib_resources._py3 import _
+
 from triangle.forms import TriangleForm, ContactFrom, TriangleFormRes
 from django.shortcuts import redirect, render
 from django.core.mail import BadHeaderError, send_mail
@@ -15,7 +18,15 @@ def triangle_form(request):
         if form.is_valid():
             catet_1 = form.cleaned_data['catet_1']
             catet_2 = form.cleaned_data['catet_2']
-            diagonal = str(math.sqrt(int(catet_1) ** 2 + int(catet_2) ** 2))
+            if catet_1 < 0 or catet_2 < 0:
+                if catet_1 < 0:
+                    value = catet_1
+                else:
+                    value = catet_2
+                raise ValidationError(_('Invalid value < 0: %(value)s'),
+                                      code='invalid',
+                                      params={'value': value},)
+            diagonal = str(math.sqrt(catet_1 ** 2 + catet_2 ** 2))
             # return redirect('triangle')
     # print(f"diagonal3333:  {diagonal}")
     return render(
@@ -38,8 +49,9 @@ def contact_form(request):
             from_email = form.cleaned_data['from_email']
             message = form.cleaned_data['message']
             try:
-                send_mail(subject, message, from_email, ['admin@example.com'])
-                messages.add_message(request, messages.SUCCESS, 'Message sent')
+                print(f"subject: {subject}  from_email: {from_email} message:  {message}")
+                # send_mail(subject, message, from_email, ['admin@example.com'])
+                # messages.add_message(request, messages.SUCCESS, 'Message sent')
             except BadHeaderError:
                 messages.add_message(request, messages.ERROR, 'Message not sent')
             return redirect('contact')
