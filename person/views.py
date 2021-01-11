@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.response import TemplateResponse
 from django.urls import reverse
 
 from person.forms import PersonalModelForm
@@ -11,6 +12,11 @@ def index(request):
     return HttpResponse("Hello, world. You're at the person index.")
 
 
+def index2(request):
+    context = {}
+    return TemplateResponse(request, "person/index.html", context=context)
+
+
 def person_edit(request, pk):
     person_instance = get_object_or_404(Person, pk=pk)
     if request.method == "GET":
@@ -18,7 +24,7 @@ def person_edit(request, pk):
     else:
         form = PersonalModelForm(request.POST, instance=person_instance)
         if form.is_valid():
-            print(form.cleaned_data)
+            # print(form.cleaned_data)
             form.save()
             return redirect('person-update', pk=pk)
 
