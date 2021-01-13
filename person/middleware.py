@@ -14,9 +14,7 @@ class LogMiddleware:
 
     def process_view(self, request, view_func, view_args, view_kwargs):
         mas_path = request.path.split('/')
-        if mas_path[1] == 'admin':
-            return
-        else:
+        if mas_path[1] != 'admin':
             path_log = request.scheme + '://' + request.get_host() + request.path
-            p = Log_midlware(path=path_log, method=request.method, timestamp=datetime.timestamp(datetime.now()))
+            p = Log_midlware(path=path_log, method=request.method)
             p.save()

@@ -43,7 +43,7 @@ def new_person(request):
     else:
         form = PersonalModelForm(request.POST)
         if form.is_valid():
-            saved_form = form.save()
+            form.save()
             return redirect('person-create')
 
     return render(

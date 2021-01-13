@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.core.exceptions import ValidationError
 from pipenv.vendor.importlib_resources._py3 import _
 
-from triangle.forms import TriangleForm, ContactFrom, TriangleFormRes
+from triangle.forms import ContactFrom, TriangleForm
 from django.shortcuts import redirect, render
 from django.core.mail import BadHeaderError, send_mail
 
@@ -25,7 +25,7 @@ def triangle_form(request):
                     value = catet_2
                 raise ValidationError(_('Invalid value < 0: %(value)s'),
                                       code='invalid',
-                                      params={'value': value},)
+                                      params={'value': value}, )
             diagonal = str(math.sqrt(catet_1 ** 2 + catet_2 ** 2))
             # return redirect('triangle')
     # print(f"diagonal3333:  {diagonal}")
