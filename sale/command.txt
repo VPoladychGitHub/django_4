@@ -1,0 +1,47 @@
+./manage.py shell_plus --print-sql
+python manage.py shell_plus --print-sql
+
+
+print(<Product.objects.all().query)
+
+from sale.models import Product
+ Product.objects.all()
+ print(Product.objects.all().query)
+Product.objects.all()[1]
+
+>Product.objects.all()[1:3]
+>City.objects.first()
+>City.objects.last()
+
+city.provider
+provider = city.provider
+
+prodr = Provider.objects.first()
+
+prodr.city
+
+# models.OneToOneFieldld =======================================
+provider = Provider.objects.first()
+provider.city
+#  обратно
+city = City.objects.first()
+city.provider
+
+#  ForeignKey  =================================================
+customer = Customer.objects.first()
+customer.city
+#  обратно
+city = City.objects.first()
+city.customer_set.all()
+
+# models.ManyToManyField =======================================
+
+Customer.objects.first().product.all()
+
+customer = Customer.objects.first()
+customer.product.all()
+
+#  обратно
+product = Product.objects.first()
+product.customer_set.all()
+
