@@ -1,0 +1,3 @@
+ from triangle.tasks import add, mul, xsum
+celery -A django_4 worker -l INFO
+add.delay(5,2)

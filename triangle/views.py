@@ -6,7 +6,7 @@ from pipenv.vendor.importlib_resources._py3 import _
 from triangle.forms import ContactFrom, TriangleForm
 from django.shortcuts import redirect, render
 from django.core.mail import BadHeaderError, send_mail
-
+from triangle.tasks import send_mail as celary_send_mail
 
 def triangle_form(request):
     diagonal: str = str()
@@ -48,6 +48,8 @@ def contact_form(request):
             subject = form.cleaned_data['subject']
             from_email = form.cleaned_data['from_email']
             message = form.cleaned_data['message']
+            celary_send_mail(subject, message, from_email)
+            messages.add_message(request, messages.SUCCESS, 'Message sent')
             try:
                 print(f"subject: {subject}  from_email: {from_email} message:  {message}")
                 # send_mail(subject, message, from_email, ['admin@example.com'])
