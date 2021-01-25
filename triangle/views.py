@@ -8,6 +8,7 @@ from django.shortcuts import redirect, render
 from django.core.mail import BadHeaderError, send_mail
 from triangle.tasks import send_mail as celary_send_mail
 
+
 def triangle_form(request):
     diagonal: str = str()
     if request.method == "GET":
