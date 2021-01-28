@@ -1,3 +1,24 @@
  from triangle.tasks import add, mul, xsum
 celery -A django_4 worker -l INFO
 add.delay(5,2)
+from datetime import datetime, timedelta
+
+>>> tomorrow = datetime.utcnow() + timedelta(days=1)
+>>> tomorrow = datetime.utcnow() + timedelta(days=1)
+>>> add.apply_async((2, 2), eta=tomorrow)
+
+https://docs.celeryproject.org/en/stable/userguide/calling.html#expiration
+https://codeburst.io/building-an-rss-feed-scraper-with-python-73715ca06e1f
+
+
+2020-01-27 14:30:59
+
+2021-01-27 14:30:59
+2021-01-29 14:30:59             !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Добавить модели Авторов и Цитат (не забываем о связях), и зарегистрируйте их в админке.
+
+Использовать ресурс https://quotes.toscrape.com/
+
+Создать периодическую задачу которая будет добавлять по 5 НОВЫХ цитат (и их авторов с информацией)
+ каждый нечетный час.
+ Когда цитаты закончатся - отправьте себе уведомление по почте что больше нет цитат (в консоль).

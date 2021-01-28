@@ -1,10 +1,21 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from triangle.models import AutherQuote
+from django_4 import settings
 
 
-class TriangleFormRes(forms.Form):
-    diagonal = forms.IntegerField()
+class AutherQuoteForm(forms.ModelForm):
+    class Meta:
+        model = AutherQuote
+        fields = ['name', 'quote']
+
+
+class EmailForm(forms.Form):
+    # send_date = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS)
+    send_date = forms.DateTimeField(input_formats=settings.DATETIME_INPUT_FORMATS)
+    send_email = forms.EmailField(required=True)
+    message = forms.CharField(widget=forms.Textarea, required=True)
 
 
 class TriangleForm(forms.Form):

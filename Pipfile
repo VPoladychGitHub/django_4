@@ -18,6 +18,8 @@ django-debug-toolbar = "*"
 django-silk = "*"
 celery = "*"
 django-celery-results = "*"
+beautifulsoup4 = "*"
+scrapy-beautifulsoup = "*"
 
 [dev-packages]
 
