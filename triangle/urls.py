@@ -6,5 +6,5 @@ urlpatterns = [
     path('', views.triangle_form, name='triangle'),
     path('sendemail', views.send_email_form, name="send_email"),
     path('contact', views.contact_form, name="contact"),
-    path('aq', views.auther_quote, name='auther_quote'),
+    # path('aq', views.auther_quote, name='auther_quote'),
 ]

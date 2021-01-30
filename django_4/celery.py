@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 from celery import Celery
 
@@ -27,9 +28,13 @@ app.autodiscover_tasks()
 # }
 app.conf.beat_schedule = {
     # выполняется каждую минуту
-    'scraping-task-one-min': {
-        'task': 'tasks.hackernews_rss',
-        'schedule': crontab()
+    # 'scraping-task-one-min': {
+    #     'task': 'tasks.hackernews_rss',
+    #     'schedule': crontab()
+    # },
+    'parsing': {
+        'task': 'triangle.tasks.parse_quoters',
+        'schedule': crontab(minute=0, hour='1,3,5,7,9,11,13,15,17,19,21,23')
     }
 }
 

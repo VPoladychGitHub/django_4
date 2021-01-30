@@ -1,17 +1,17 @@
 import math
 import pytz
-import requests
+
 from django.contrib import messages
 from django.core.exceptions import ValidationError
+from django.http import response
 from pipenv.vendor.importlib_resources._py3 import _
 
-from triangle.forms import ContactFrom, TriangleForm, EmailForm
+from triangle.forms import ContactFrom, EmailForm, TriangleForm
 from django.shortcuts import redirect, render
 from django.core.mail import BadHeaderError, send_mail
 from triangle.tasks import send_mail_django_, send_mail_homework
 import datetime
-from triangle.forms import AutherQuoteForm
-from bs4 import BeautifulSoup
+
 
 def send_email_form(request):
     if request.method == "GET":
@@ -35,9 +35,9 @@ def send_email_form(request):
                                       params={'value': value}, )
             else:
                 send_mail_homework.apply_async(('subject', message, [send_email]), eta=dt)
-                #send_mail_homework.delay('subject', message, [send_email])
-               # send_mail('subject', message, 'admin@example.com', [send_email])
-                #send_mail_homework.apply_async(('subject', message,  [send_email]), eta=dt)
+                # send_mail_homework.delay('subject', message, [send_email])
+                # send_mail('subject', message, 'admin@example.com', [send_email])
+                # send_mail_homework.apply_async(('subject', message,  [send_email]), eta=dt)
 
                 messages.add_message(request, messages.SUCCESS, 'Message sent')
             return redirect('send_email')
@@ -49,6 +49,7 @@ def send_email_form(request):
             "form": form,
         }
     )
+
 
 def triangle_form(request):
     diagonal: str = str()
@@ -99,39 +100,6 @@ def contact_form(request):
             except BadHeaderError:
                 messages.add_message(request, messages.ERROR, 'Message not sent')
             return redirect('contact')
-    return render(
-        request,
-        "triangle/contact.html",
-        context={
-            "form": form,
-        }
-    )
-def auther_quote(request):
-    if request.method == "GET":
-        form = AutherQuoteForm()
-    else:
-        form = AutherQuoteForm(request.POST)
-        # if form.is_valid():
-        #     quote = form.cleaned_data['quote']
-        #     name = form.cleaned_data['name']
-        #     lst = []
-        #     r = requests.get('https://quotes.toscrape.com/')
-        #     soup = BeautifulSoup(r.content, "html.parser")
-        #
-        #     f = len(soup.find_all('class'))
-        #     p = soup.find_all('quote')
-        #     print(p)
-
-          #  css_soup = BeautifulSoup('<div class="quote" itemscope="" itemtype="http://schema.org/CreativeWork">', 'html.parser')
-          #  css_soup.div['class']
-           # fq = soup.element_classesfindAll('quote')
-            #title = soup.find('title').text
-            # for a in fq:
-            #     title = a.find('title').text
-            #     link = a.find('link').text
-            #     published = a.find('pubDate').text
-
-           #print(soup.prettify())
     return render(
         request,
         "triangle/contact.html",
