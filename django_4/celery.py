@@ -1,5 +1,4 @@
 import os
-from datetime import timedelta
 
 from celery import Celery
 
@@ -37,6 +36,7 @@ app.conf.beat_schedule = {
         'schedule': crontab(minute=0, hour='1,3,5,7,9,11,13,15,17,19,21,23')
     }
 }
+
 
 @app.task(bind=True)
 def debug_task(self):

@@ -45,8 +45,6 @@ def parse_quoters():
     r = requests.get('https://quotes.toscrape.com/')
     html_soup = BeautifulSoup(r.text, 'html.parser')
     aq = html_soup.find_all('div', class_='quote')
-    print(type(aq))
-    print(len(aq))
     ind: int = 0
     for a in aq:
         quote = a.find('span', class_='text').text
@@ -58,11 +56,8 @@ def parse_quoters():
         except Exception:
             pass
         if not res_aquote:
-            print(f"aouth: {aouth}: quote: {quote}")
             p = AutherQuote(name=aouth, quote=quote)
             p.save()
-            print(quote)
-            print(aouth)
             ind += 1
             if ind >= 5:
                 break
