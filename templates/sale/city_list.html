@@ -1,0 +1,18 @@
+{% block content %}
+  <h1>City List</h1>
+
+  {% if city_list %}
+    <ul>
+
+      {% for city in city_list %}
+        <li>
+          <a href="{{ city.get_absolute_url }}">{{ city.name }}</a> ({{ city.number_inhabitants }})
+        </li>
+      {% endfor %}
+
+    </ul>
+
+  {% else %}
+    <p>There are no city.</p>
+  {% endif %}
+{% endblock %}

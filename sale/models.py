@@ -48,6 +48,9 @@ class City(models.Model):
         """String for representing the Model object."""
         return f"{self.name}, {self.number_inhabitants}"
 
+    def get_absolute_url(self):
+        return reverse('city-detail', kwargs={'pk': self.pk})
+
 
 class Provider(models.Model):
     """Model representing an provider."""
@@ -57,5 +60,9 @@ class Provider(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return f"{self.name}, {self.city.name}"
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular author instance."""
+        return reverse('provider-create')
 
 #  python3 manage.py graph_models polls  > my_project.dot

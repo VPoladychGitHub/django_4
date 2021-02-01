@@ -3,15 +3,12 @@ import pytz
 
 from django.contrib import messages
 from django.core.exceptions import ValidationError
-from django.http import response
 from pipenv.vendor.importlib_resources._py3 import _
 
 from triangle.forms import ContactFrom, EmailForm, TriangleForm
 from django.shortcuts import redirect, render
 from django.core.mail import BadHeaderError, send_mail
 from triangle.tasks import send_mail_django_, send_mail_homework
-import datetime
-
 
 def send_email_form(request):
     if request.method == "GET":
@@ -22,24 +19,24 @@ def send_email_form(request):
             send_email = form.cleaned_data['send_email']
             message = form.cleaned_data['message']
             send_date = form.cleaned_data['send_date']
-            today = datetime.datetime.utcnow()
-            date_max = today + datetime.timedelta(days=2)
-            d1 = pytz.utc.localize(today)
-            d2 = pytz.utc.localize(date_max)
-            dt = send_date + datetime.timedelta(microseconds=-1)
-            if dt > d2 or dt < d1:
-                messages.add_message(request, messages.ERROR, 'Message not sent')
-                value = dt
-                raise ValidationError(_('Invalid  diapason date, dt: %(value)s'),
-                                      code='invalid',
-                                      params={'value': value}, )
-            else:
-                send_mail_homework.apply_async(('subject', message, [send_email]), eta=dt)
+            # today = datetime.datetime.utcnow()
+            # date_max = today + datetime.timedelta(days=2)
+            # d1 = pytz.utc.localize(today)
+            # d2 = pytz.utc.localize(date_max)
+            # dt = send_date + datetime.timedelta(microseconds=-1)
+            # if dt > d2 or dt < d1:
+            #     messages.add_message(request, messages.ERROR, 'Message not sent')
+            #     value = dt
+            #     raise ValidationError(_('Invalid  diapason date, dt: %(value)s'),
+            #                           code='invalid',
+            #                           params={'value': value}, )
+            # else:
+            send_mail_homework.apply_async(('subject', message, [send_email]), eta=send_date)
                 # send_mail_homework.delay('subject', message, [send_email])
                 # send_mail('subject', message, 'admin@example.com', [send_email])
                 # send_mail_homework.apply_async(('subject', message,  [send_email]), eta=dt)
 
-                messages.add_message(request, messages.SUCCESS, 'Message sent')
+            messages.add_message(request, messages.SUCCESS, 'Message sent')
             return redirect('send_email')
 
     return render(

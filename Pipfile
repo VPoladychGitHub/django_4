@@ -20,6 +20,7 @@ celery = "*"
 django-celery-results = "*"
 beautifulsoup4 = "*"
 scrapy-beautifulsoup = "*"
+redis = "*"
 
 [dev-packages]
 

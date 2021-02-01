@@ -11,9 +11,6 @@ def send_mail_homework(subject, message, email):
     django_send_mail(subject, message, 'admin@example.com', [email])
 
 
-#  django_send_mail("subject", message, ['admin@example.com'], email)
-
-
 @shared_task
 def add(x, y):
     print(x + y)
