@@ -1,11 +1,2 @@
-{% block content %}
-
-  <form action="" method="post">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-    </table>
-    <input type="submit" value="Submit"/>
-
-  </form>
-{% endblock %}
+<h1>City:   {{ object.name }}</h1>
+<p>number_inhabitants :{{ object.number_inhabitants }}</p>

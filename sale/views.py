@@ -10,7 +10,7 @@ def index(request):
     return HttpResponse("Hello, world. You're at the sale index.")
 
 
-class CityDetailView(generic.UpdateView):
+class CityDetailView(generic.DetailView):
     """Generic class-based detail view for an author."""
     model = City
     fields = ['name', 'number_inhabitants']
