@@ -1,5 +1,7 @@
 from django.contrib import admin
 
-from .models import AutherQuote
+from .models import Auther, Quote
 
-admin.site.register(AutherQuote)
+admin.site.register(Auther)
+
+admin.site.register(Quote)

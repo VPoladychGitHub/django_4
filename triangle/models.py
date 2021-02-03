@@ -3,6 +3,25 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
+class Auther(models.Model):
+    """Model representing an Auther."""
+    name = models.CharField(_("name"), max_length=200)
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return f"{self.name}"
+
+
+class Quote(models.Model):
+    """Model representing an Quote."""
+    quote = models.CharField(_("quote"), max_length=1200)
+    auther = models.ForeignKey("Auther", on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return f"{self.quote}"
+
+
 class AutherQuote(models.Model):
     """Model representing an Product."""
     name = models.CharField(_("name"), max_length=200)

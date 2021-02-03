@@ -1,14 +1,74 @@
 import math
 import pytz
+from bs4 import BeautifulSoup
 
 from django.contrib import messages
+import requests
 from django.core.exceptions import ValidationError
 from pipenv.vendor.importlib_resources._py3 import _
 
-from triangle.forms import ContactFrom, EmailForm, TriangleForm
+from triangle.forms import ContactFrom, EmailForm, QuoteForm, TriangleForm
+
 from django.shortcuts import redirect, render
 from django.core.mail import BadHeaderError, send_mail
+
+from triangle.models import Auther, Quote
+
 from triangle.tasks import send_mail_django_, send_mail_homework
+from urllib.request import urlopen
+
+
+def auther_quote2(request):
+    if request.method == "GET":
+        form = QuoteForm()
+    else:
+        form = QuoteForm(request.POST)
+        if form.is_valid():
+            i: int = 1
+            ind: int = 0
+            while True:
+                url = f'https://quotes.toscrape.com/page/{i}/'
+                try:
+                    page = urlopen(url)
+                except Exception:
+                    print("page = urlopen(url)")
+                    break
+                soup = BeautifulSoup(page, 'html.parser')
+                aq = soup.find_all('div', class_='quote')
+                for a in aq:
+                    quote = a.find('span', class_='text').text
+                    author = a.find(class_="author").text
+                    # print(f"quote: {quote}  author: {author} ")
+                    res_aquote = ""
+                    try:
+                        res_aquote = Quote.objects.get(quote__contains=quote)
+                    except Exception:
+                        pass
+                    if not res_aquote:
+                        try:
+                            obj, created = Auther.objects.get_or_create(name=author)
+                        except Exception as ss:
+                            print(ss)
+                        try:
+                            pass
+                            obj_aquote, created_aquote = Quote.objects.get_or_create(auther=obj, quote=quote)
+                            ind += 1
+                        except Exception as ss22:
+                            print(ss22)
+                        if ind >= 5:
+                            break
+                if ind >= 5:
+                    break
+                i += 1
+
+    return render(
+        request,
+        "triangle/contact.html",
+        context={
+            "form": form,
+        }
+    )
+
 
 def send_email_form(request):
     if request.method == "GET":
@@ -32,9 +92,9 @@ def send_email_form(request):
             #                           params={'value': value}, )
             # else:
             send_mail_homework.apply_async(('subject', message, [send_email]), eta=send_date)
-                # send_mail_homework.delay('subject', message, [send_email])
-                # send_mail('subject', message, 'admin@example.com', [send_email])
-                # send_mail_homework.apply_async(('subject', message,  [send_email]), eta=dt)
+            # send_mail_homework.delay('subject', message, [send_email])
+            # send_mail('subject', message, 'admin@example.com', [send_email])
+            # send_mail_homework.apply_async(('subject', message,  [send_email]), eta=dt)
 
             messages.add_message(request, messages.SUCCESS, 'Message sent')
             return redirect('send_email')

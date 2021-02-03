@@ -1,7 +1,9 @@
+from urllib.request import urlopen
+
 from celery import shared_task
 from django.core.mail import send_mail as django_send_mail
 import requests
-from triangle.models import AutherQuote
+from triangle.models import Auther, Quote
 from bs4 import BeautifulSoup
 
 
@@ -39,25 +41,42 @@ def send_mail_to_admin():
 
 @shared_task
 def parse_quoters():
-    r = requests.get('https://quotes.toscrape.com/')
-    html_soup = BeautifulSoup(r.text, 'html.parser')
-    aq = html_soup.find_all('div', class_='quote')
+    i: int = 1
     ind: int = 0
-    for a in aq:
-        quote = a.find('span', class_='text').text
-        aouth = a.find(class_="author").text
-        q_serch = quote[1:8]
-        res_aquote = ""
+    while True:
+        url = f'https://quotes.toscrape.com/page/{i}/'
         try:
-            res_aquote = AutherQuote.objects.get(quote__contains=q_serch)
+            page = urlopen(url)
         except Exception:
-            pass
-        if not res_aquote:
-            p = AutherQuote(name=aouth, quote=quote)
-            p.save()
-            ind += 1
-            if ind >= 5:
-                break
+            print("page = urlopen(url)")
+            break
+        soup = BeautifulSoup(page, 'html.parser')
+        aq = soup.find_all('div', class_='quote')
+        for a in aq:
+            quote = a.find('span', class_='text').text
+            author = a.find(class_="author").text
+            # print(f"quote: {quote}  author: {author} ")
+            res_aquote = ""
+            try:
+                res_aquote = Quote.objects.get(quote__contains=quote)
+            except Exception:
+                pass
+            if not res_aquote:
+                try:
+                    obj, created = Auther.objects.get_or_create(name=author)
+                except Exception as ss:
+                    print(ss)
+                try:
+                    pass
+                    obj_aquote, created_aquote = Quote.objects.get_or_create(auther=obj, quote=quote)
+                    ind += 1
+                except Exception as ss22:
+                    print(ss22)
+                if ind >= 5:
+                    break
+        if ind >= 5:
+            break
+        i += 1
 
-    if ind == 0:
+    if ind < 5:
         send_mail_homework.delay('no quotes', "больше нет цитат ", ["home@test.com"])

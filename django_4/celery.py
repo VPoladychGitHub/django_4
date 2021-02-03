@@ -33,7 +33,7 @@ app.conf.beat_schedule = {
     # },
     'parsing': {
         'task': 'triangle.tasks.parse_quoters',
-        'schedule': crontab(minute=0, hour='1,3,5,7,9,11,13,15,17,19,21,23')
+        'schedule': crontab(minute=0, hour='1-23/2')
     }
 }
 
