@@ -14,7 +14,7 @@ class Auther(models.Model):
 
 class Quote(models.Model):
     """Model representing an Quote."""
-    quote = models.CharField(_("quote"), max_length=1200)
+    quote = models.TextField(_("quote"))
     auther = models.ForeignKey("Auther", on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
