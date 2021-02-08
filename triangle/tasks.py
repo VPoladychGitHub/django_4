@@ -67,7 +67,6 @@ def parse_quoters():
                 except Exception as ss:
                     print(ss)
                 try:
-                    pass
                     obj_aquote, created_aquote = Quote.objects.get_or_create(auther=obj, quote=quote)
                     ind += 1
                 except Exception as ss22:

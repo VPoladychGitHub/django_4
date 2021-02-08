@@ -143,6 +143,16 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 STATIC_URL = '/static/'
 
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
 # cilk
 SILKY_PYTHON_PROFILER = True
 
@@ -163,3 +173,7 @@ CELARY_TIMEZONE = 'UTC'
 
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 DATETIME_INPUT_FORMATS = ['%Y-%m-%d %H:%M:%S']
+
+# cashe
+
+CACHE_TTL = 15

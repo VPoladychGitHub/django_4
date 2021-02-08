@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "05e031641bb90be6168db0a0f1dff45c1ce0db1c969eb2c34599b40e5b0972b2"
+            "sha256": "1911f446c8407423403da7f1b6da68d68af7e74a465bcdc2852ddf63bf4fa257"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -34,9 +34,10 @@
         },
         "autopep8": {
             "hashes": [
-                "sha256:d21d3901cb0da6ebd1e83fc9b0dfbde8b46afc2ede4fe32fbda0c7c6118ca094"
+                "sha256:9e136c472c475f4ee4978b51a88a494bfcd4e3ed17950a44a988d9e434837bea",
+                "sha256:cae4bc0fb616408191af41d062d7ec7ef8679c7f27b068875ca3a9e2878d5443"
             ],
-            "version": "==1.5.4"
+            "version": "==1.5.5"
         },
         "beautifulsoup4": {
             "hashes": [
@@ -136,6 +137,14 @@
             ],
             "index": "pypi",
             "version": "==3.1.0"
+        },
+        "django-redis": {
+            "hashes": [
+                "sha256:1133b26b75baa3664164c3f44b9d5d133d1b8de45d94d79f38d1adc5b1d502e5",
+                "sha256:306589c7021e6468b2656edc89f62b8ba67e8d5a1c8877e2688042263daa7a63"
+            ],
+            "index": "pypi",
+            "version": "==4.12.1"
         },
         "django-silk": {
             "hashes": [

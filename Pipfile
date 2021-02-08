@@ -21,6 +21,7 @@ django-celery-results = "*"
 beautifulsoup4 = "*"
 scrapy-beautifulsoup = "*"
 redis = "*"
+django-redis = "*"
 
 [dev-packages]
 

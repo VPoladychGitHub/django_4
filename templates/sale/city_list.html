@@ -1,18 +1,36 @@
+{% extends "base_generic.html" %}
+{% block title %}Local list Cities{% endblock %}
 {% block content %}
-  <h1>City List</h1>
+    <h1>City List</h1>
 
-  {% if city_list %}
-    <ul>
+    {% if page_obj %}
+        <ul>
 
-      {% for city in city_list %}
-        <li>
-          <a href="{{ city.get_absolute_url }}">{{ city.name }}</a> ({{ city.number_inhabitants }})
-        </li>
-      {% endfor %}
+            {% for city in page_obj %}
+                <li>
+                    <a href="{{ city.get_absolute_url }}">{{ city.name }}</a> ({{ city.number_inhabitants }})
+                </li>
+            {% endfor %}
+        </ul>
 
-    </ul>
+    {% else %}
+        <p>There are no city.</p>
+    {% endif %}
+    <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
 
-  {% else %}
-    <p>There are no city.</p>
-  {% endif %}
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+    </div>
 {% endblock %}

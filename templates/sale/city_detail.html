@@ -1,2 +1,13 @@
-<h1>City:   {{ object.name }}</h1>
-<p>number_inhabitants :{{ object.number_inhabitants }}</p>
+{% extends "base_generic.html" %}
+{% load my_filter %}
+{% load my_teg %}
+
+{% block content %}
+    <h1>City: {{ object.name|replc_xxx }}</h1>
+{#    <p>number_inhabitants :{{ object.number_inhabitants }}</p>#}
+
+    {% show_results object.number_inhabitants %}
+
+    {% current_time "%Y-%m-%d" as the_time %}
+    <p>On the date: {{ the_time }}.</p>
+{% endblock %}
