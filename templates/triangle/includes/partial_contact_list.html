@@ -1,0 +1,15 @@
+{% for contact in contacts %}
+  <tr>
+    <td>{{ contact.id }}</td>
+    <td>{{ contact.from_email }}</td>
+    <td>{{ contact.subject }}</td>
+    <td>{{ contact.message }}</td>
+    <td>{{ contact.result }}</td>
+
+
+  </tr>
+{% empty %}
+  <tr>
+    <td colspan="8" class="text-center bg-warning">No contact</td>
+  </tr>
+{% endfor %}

@@ -1,10 +1,9 @@
-<!DOCTYPE html>
+{% load static %}<!DOCTYPE html>
 <html lang="en">
 <head>
-
-  {% block title %}<title>Local library</title>{% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Book store{% endblock %}</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -14,17 +13,29 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
           integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf"
           crossorigin="anonymous"></script>
-  <!-- Add additional CSS in static file -->
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  {% block extra_css %}
+  {% endblock %}
+  {% block extra_js %}
+  {% endblock %}
 </head>
 <body>
-{% load static %}
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 
-{% block extra_js %}
-  <script src="{% static 'js/contact.js' %}"></script>
-{% endblock %}
-{% block content %}hello{% endblock %}
+
+  <div class="collapse navbar-collapse" id="main-menu">
+    <ul class="navbar-nav mr-auto">
+      {% url 'contact_list' as contact_list_url %}
+      <li class="nav-item{% if request.path == contact_list_url %} active{% endif %}">
+        <a class="nav-link" href="{{ contact_list_url }}">Contact</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container" style="padding-top: 60px;">
+  {% block content %}
+  {% endblock %}
+</div>
 
 </body>
 </html>

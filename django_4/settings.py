@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'django_celery_results',
+    'widget_tweaks',
 ]
 
 if DEBUG:
@@ -142,6 +143,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 CACHES = {
     "default": {
@@ -152,6 +156,10 @@ CACHES = {
         }
     }
 }
+
+
+
+
 
 # cilk
 SILKY_PYTHON_PROFILER = True

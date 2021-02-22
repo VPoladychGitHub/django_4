@@ -5,8 +5,14 @@ from django import forms
 from django.core.checks import messages
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-from triangle.models import Auther, Quote
+from triangle.models import Auther, Contact, Quote
 from django_4 import settings
+
+
+class ContactForm2(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['from_email', 'subject', 'message', 'result']
 
 
 class AutherForm(forms.ModelForm):

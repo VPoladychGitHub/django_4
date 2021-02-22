@@ -2,6 +2,22 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+COLOR_CHOICES = (
+    ('green', 'GREEN'),
+    ('blue', 'BLUE'),
+    ('red', 'RED'),
+    ('orange', 'ORANGE'),
+    ('black', 'BLACK'),
+)
+
+
+class MyModel(models.Model):
+    color = models.CharField(max_length=6, choices=COLOR_CHOICES, default='green')
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return f"{self.color}"
+
 
 class Log_midlware(models.Model):
     """Model representing an person."""

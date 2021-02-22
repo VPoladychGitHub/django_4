@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block extra_js %}
+    <script src="{% static 'js/contact.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <h1 class="page-header">Contact</h1>
+
+    <p>
+        <button type="button" class="btn btn-primary js-create-contact" data-url="{% url 'contact_create' %}">
+            <span class="glyphicon glyphicon-plus"></span>
+            New contact
+        </button>
+    </p>
+
+    <table class="table" id="contact-table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>from_email</th>
+            <th>subject</th>
+            <th>message</th>
+            <th>result</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% include 'triangle/includes/partial_contact_list.html' %}
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="modal-contact">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

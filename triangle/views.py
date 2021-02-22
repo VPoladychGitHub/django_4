@@ -5,17 +5,90 @@ from bs4 import BeautifulSoup
 from django.contrib import messages
 import requests
 from django.core.exceptions import ValidationError
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 from pipenv.vendor.importlib_resources._py3 import _
 
-from triangle.forms import ContactFrom, EmailForm, QuoteForm, TriangleForm
+from triangle.forms import ContactForm2, ContactFrom, EmailForm, TriangleForm
 
 from django.shortcuts import redirect, render
 from django.core.mail import BadHeaderError, send_mail
 
-from triangle.models import Auther, Quote
+from triangle.models import Contact
 
 from triangle.tasks import send_mail_django_, send_mail_homework
 from urllib.request import urlopen
+
+
+def contact_list(request):
+    contacts = Contact.objects.all()
+    # for contact in contacts:
+    #     print(f"subject:{contact.subject} message:{contact.message} result:{contact.result}")
+    return render(request, 'triangle/contact_list.html', {'contacts': contacts})
+
+
+def save_contact_form(request, form, template_name):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            from_email = form.cleaned_data['from_email']
+            message = form.cleaned_data['message']
+            send_mail(subject, message, from_email, ['admin@example.com'])
+            # print(f"subject:{subject} message:{message} from_email:{from_email}")
+            f = form.save(commit=False)
+            f.result = ' Message sent'
+            f.save()
+            messages.add_message(request, messages.SUCCESS, ' Message sent')
+
+            data['form_is_valid'] = True
+            contacts = Contact.objects.all()
+
+            data['html_contact_list'] = render_to_string('triangle/includes/partial_contact_list.html', {
+                'contacts': contacts
+            })
+        else:
+            data['form_is_valid'] = False
+    context = {'form': form}
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def contact_create(request):
+    if request.method == 'POST':
+        form = ContactForm2(request.POST)
+    else:
+        form = ContactForm2()
+    return save_contact_form(request, form, 'triangle/includes/partial_contact_create.html')
+
+
+def contact_form_ajax_2(request):
+    if request.method == "GET":
+        form = ContactFrom()
+    else:
+        form = ContactFrom(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            from_email = form.cleaned_data['from_email']
+            message = form.cleaned_data['message']
+
+            try:
+                print(f"subject: {subject}  from_email: {from_email} message:  {message}")
+                messages.add_message(request, messages.SUCCESS, 'Message sent')
+                # send_mail(subject, message, from_email, ['admin@example.com'])
+                # messages.add_message(request, messages.SUCCESS, 'Message sent')
+            except BadHeaderError:
+                messages.add_message(request, messages.ERROR, 'Message not sent')
+
+            return redirect('contact_create')
+
+    return render(
+        request,
+        "triangle/contact.html",
+        context={
+            "form": form,
+        }
+    )
 
 
 def send_email_form(request):
