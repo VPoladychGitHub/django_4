@@ -22,6 +22,7 @@ beautifulsoup4 = "*"
 scrapy-beautifulsoup = "*"
 redis = "*"
 django-redis = "*"
+coreapi = "*"
 
 [dev-packages]
 

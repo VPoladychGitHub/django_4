@@ -62,33 +62,33 @@ def contact_create(request):
     return save_contact_form(request, form, 'triangle/includes/partial_contact_create.html')
 
 
-def contact_form_ajax_2(request):
-    if request.method == "GET":
-        form = ContactFrom()
-    else:
-        form = ContactFrom(request.POST)
-        if form.is_valid():
-            subject = form.cleaned_data['subject']
-            from_email = form.cleaned_data['from_email']
-            message = form.cleaned_data['message']
-
-            try:
-                print(f"subject: {subject}  from_email: {from_email} message:  {message}")
-                messages.add_message(request, messages.SUCCESS, 'Message sent')
-                # send_mail(subject, message, from_email, ['admin@example.com'])
-                # messages.add_message(request, messages.SUCCESS, 'Message sent')
-            except BadHeaderError:
-                messages.add_message(request, messages.ERROR, 'Message not sent')
-
-            return redirect('contact_create')
-
-    return render(
-        request,
-        "triangle/contact.html",
-        context={
-            "form": form,
-        }
-    )
+# def contact_form_ajax_2(request):
+#     if request.method == "GET":
+#         form = ContactFrom()
+#     else:
+#         form = ContactFrom(request.POST)
+#         if form.is_valid():
+#             subject = form.cleaned_data['subject']
+#             from_email = form.cleaned_data['from_email']
+#             message = form.cleaned_data['message']
+#
+#             try:
+#                 print(f"subject plsd: {subject}  from_email: {from_email} message:  {message}")
+#                 messages.add_message(request, messages.SUCCESS, 'Message sent')
+#                 # send_mail(subject, message, from_email, ['admin@example.com'])
+#                 # messages.add_message(request, messages.SUCCESS, 'Message sent')
+#             except BadHeaderError:
+#                 messages.add_message(request, messages.ERROR, 'Message not sent')
+#
+#  #           return redirect('contact_create')
+#
+#     return render(
+#         request,
+#         "triangle/contact.html",
+#         context={
+#             "form": form,
+#         }
+#     )
 
 
 def send_email_form(request):

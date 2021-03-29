@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.core.paginator import Paginator
+from django.db.models import QuerySet
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -32,11 +33,17 @@ class CityListView(generic.ListView):
 @cache_page(CACHE_TTL)
 def listing(request):
     city_list = City.objects.all()
+    print(type(city_list))
+    my_dict = {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6}
+    # q = QuerySet(my_dict)
+    # for i in q:
+    #     print(str(i))
+    #print(q)
     paginator = Paginator(city_list, 30)  # Show 30 contacts per page.
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'sale\city_list.html', {'page_obj': page_obj})
+    return render(request, 'sale/city_list.html', {'page_obj': page_obj})
 
 
 class CityCreate(PermissionRequiredMixin, generic.CreateView):
