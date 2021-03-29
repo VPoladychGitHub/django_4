@@ -34,12 +34,11 @@ class CityListView(generic.ListView):
 def listing(request):
     city_list = City.objects.all()
     print(type(city_list))
-    my_dict = {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6}
     # q = QuerySet(my_dict)
     # for i in q:
     #     print(str(i))
-    #print(q)
-    paginator = Paginator(city_list, 30)  # Show 30 contacts per page.
+    # print(q)
+    paginator = Paginator(city_list, 30)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
